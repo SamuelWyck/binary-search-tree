@@ -20,6 +20,16 @@ class BinaryTree {
     };
 
 
+    get root() {
+        return this.#root;
+    };
+
+
+    get comparator() {
+        this.#compare;
+    };
+
+
     mergeSort(array, removeDuplicates=false, compare=null) {
         if (array.length <= 1) {
             return array;
@@ -96,7 +106,6 @@ class BinaryTree {
 
 
 const tree = new BinaryTree();
-console.log(tree.compare)
 
 const array = [2, 6, 1, 34, 7, 5, 9, 3, 1, 1, 1, 11, 1, 7, 4, 5];
 console.log(array)
