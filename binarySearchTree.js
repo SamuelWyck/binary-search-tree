@@ -13,8 +13,17 @@ class BinaryTree {
 
     #root = null;
     #compare = null;
+    #defaultComparator = function(a, b) {
+        if (a === b) {
+            return 0;
+        } else if (a < b) {
+            return -1;
+        } else {
+            return 1;
+        }
+    };
 
-    constructor(array=null, comparator=null) {
+    constructor(comparator=this.#defaultComparator) {
         this.#root = null;
         this.#compare = comparator;
     };
@@ -134,8 +143,36 @@ class BinaryTree {
 
     print() {
         this.prettyPrint(this.#root)
-    }
+    };
      
+
+    insert(value) {
+        return this.#insertVal(this.#root, value);
+    };
+
+
+    #insertVal(node, value) {
+        if (node === null || node.val === value) {
+            return false;
+        }
+        if (node.left === null && node.right === null) {
+
+        }
+
+        if (this.#compare !== null) {
+            const result = this.#compare(value, node.val);
+            if (result === 0) {
+                return false;
+            } else if (result < 0) {
+                return this.#insertVal(node.left, value);
+            } else if (result > 0) {
+                return this.#insertVal(node.right, value);
+            }
+        }
+
+
+    };
+    
 };
 
 
