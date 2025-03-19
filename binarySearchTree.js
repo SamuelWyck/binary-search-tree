@@ -147,30 +147,33 @@ class BinaryTree {
      
 
     insert(value) {
+        if (this.#root === null) {
+            this.#root = new TreeNode(value);
+            return true;
+        }
         return this.#insertVal(this.#root, value);
     };
 
 
     #insertVal(node, value) {
-        if (node === null || node.val === value) {
+        const result = this.#compare(value, node.val);
+        if (result === 0) {
             return false;
         }
-        if (node.left === null && node.right === null) {
-
+        if (node.left === null && result < 0) {
+            node.left = new TreeNode(value);
+            return true;
+        }
+        if (node.right === null && result > 0) {
+            node.right = new TreeNode(value);
+            return true;
         }
 
-        if (this.#compare !== null) {
-            const result = this.#compare(value, node.val);
-            if (result === 0) {
-                return false;
-            } else if (result < 0) {
-                return this.#insertVal(node.left, value);
-            } else if (result > 0) {
-                return this.#insertVal(node.right, value);
-            }
+        if (result < 0) {
+            return this.#insertVal(node.left, value);
+        } else {
+            return this.#insertVal(node.right, value);
         }
-
-
     };
     
 };
@@ -179,5 +182,7 @@ class BinaryTree {
 const tree = new BinaryTree();
 
 const array = [2, 6, 1, 34, 7, 5, 9, 3, 1, 1, 1, 11, 1, 7, 4, 5];
-let root = tree.buildTree(array)
-
+// tree.buildTree(array)
+tree.print()
+console.log(tree.insert(5))
+tree.print()
