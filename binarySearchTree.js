@@ -100,6 +100,7 @@ class BinaryTree {
     buildTree(array) {
         const sortedArray = this.#mergeSort(array, true, this.#compare);
         this.#root = this.#buildTreeRecursive(sortedArray, 0, sortedArray.length - 1);
+        return this.#root;
     };
 
 
@@ -141,5 +142,5 @@ class BinaryTree {
 const tree = new BinaryTree();
 
 const array = [2, 6, 1, 34, 7, 5, 9, 3, 1, 1, 1, 11, 1, 7, 4, 5];
-tree.buildTree(array)
-console.log(tree.print())
+let root = tree.buildTree(array)
+
