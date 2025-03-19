@@ -244,6 +244,29 @@ class BinaryTree {
         }
         return node.val;
     };
+
+
+    find(value) {
+        return this.#findVal(this.#root, value);
+    };
+
+
+    #findVal(node, value) {
+        if (node === null) {
+            return null;
+        }
+
+        const result = this.#compare(value, node.val);
+        if (result === 0) {
+            return node;
+        }
+
+        if (result < 0) {
+            return this.#findVal(node.left, value);
+        } else {
+            return this.#findVal(node.right, value);
+        }
+    };
     
 };
 
