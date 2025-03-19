@@ -1,3 +1,5 @@
+import Deque from "linked-deque";
+
 
 class TreeNode {
     constructor(value) {
@@ -267,7 +269,28 @@ class BinaryTree {
             return this.#findVal(node.right, value);
         }
     };
-    
+
+
+    levelOrder(callback) {
+        if (typeof callback !== "function") {
+            throw new TypeError("A callback function must be supplied");
+        }
+
+        const deque = new Deque([this.#root]);
+
+        while (deque.length > 0) {
+            const current = deque.popleft();
+
+            callback(current.val);
+
+            if (current.left !== null) {
+                deque.push(current.left);
+            }
+            if (current.right !== null) {
+                deque.push(current.right);
+            }
+        }
+    }; 
 };
 
 
@@ -285,3 +308,7 @@ tree.buildTree(array)
 tree.print()
 tree.remove(5)
 tree.print()
+
+tree.levelOrder(function(val) {
+    console.log(val);
+});
