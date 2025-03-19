@@ -314,6 +314,26 @@ class BinaryTree {
         callback(node.val);
         this.#inOrderTraverse(node.right, callback);
     };
+
+
+    preOrder(callback) {
+        if (typeof callback !== "function") {
+            throw new TypeError("A callback function must be supplied");
+        }
+
+        this.#preOrderTraverse(this.#root, callback);
+    };
+
+
+    #preOrderTraverse(node, callback) {
+        if (node === null) {
+            return;
+        }
+
+        callback(node.val);
+        this.#preOrderTraverse(node.left, callback);
+        this.#preOrderTraverse(node.right, callback);
+    };
 };
 
 
@@ -332,6 +352,6 @@ tree.print()
 tree.remove(5)
 tree.print()
 
-tree.inOrder(function(val) {
+tree.preOrder(function(val) {
     console.log(val);
 });
