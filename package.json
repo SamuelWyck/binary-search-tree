@@ -1,0 +1,34 @@
+{
+  "name": "balanced-binary-search-tree",
+  "version": "1.0.0",
+  "description": "A simple self-balancing binary search tree. ",
+  "keywords": [
+    "binary search tree",
+    "tree",
+    "search tree",
+    "binary tree",
+    "binary search",
+    "self-balancing",
+    "balanced",
+    "self-balanced",
+    "javascript"
+  ],
+  "homepage": "https://github.com/SamuelWyck/binary-search-tree#readme",
+  "bugs": {
+    "url": "https://github.com/SamuelWyck/binary-search-tree/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamuelWyck/binary-search-tree.git"
+  },
+  "license": "ISC",
+  "author": "samawyck@gmail.com",
+  "type": "module",
+  "main": "binarySearchTree.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "linked-deque": "^1.0.4"
+  }
+}
