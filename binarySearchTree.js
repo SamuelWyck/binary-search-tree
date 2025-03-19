@@ -30,15 +30,15 @@ class BinaryTree {
     };
 
 
-    mergeSort(array, removeDuplicates=false, compare=null) {
+    #mergeSort(array, removeDuplicates=false, compare=null) {
         if (array.length <= 1) {
             return array;
         }
 
         const mid = Math.floor(array.length/2);
 
-        const left = this.mergeSort(array.slice(0, mid), removeDuplicates, compare);
-        const right = this.mergeSort(array.slice(mid, array.length), removeDuplicates, compare);
+        const left = this.#mergeSort(array.slice(0, mid), removeDuplicates, compare);
+        const right = this.#mergeSort(array.slice(mid, array.length), removeDuplicates, compare);
 
         return this.#merge(left, right, removeDuplicates, compare);
     };
@@ -98,8 +98,8 @@ class BinaryTree {
 
 
     buildTree(array) {
-        array = this.mergeSort(array, true, this.#compare);
-
+        array = this.#mergeSort(array, false);
+        return array;
 
     };
 };
@@ -110,12 +110,4 @@ const tree = new BinaryTree();
 const array = [2, 6, 1, 34, 7, 5, 9, 3, 1, 1, 1, 11, 1, 7, 4, 5];
 console.log(array)
 
-console.log(tree.mergeSort(array, false, function(a, b) {
-    if (a === b) {
-        return 0;
-    } else if (a < b) {
-        return 1;
-    } else {
-        return -1;
-    }
-}))
+console.log(tree.buildTree(array))
