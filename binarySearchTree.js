@@ -275,6 +275,9 @@ class BinaryTree {
         if (typeof callback !== "function") {
             throw new TypeError("A callback function must be supplied");
         }
+        if (this.#root === null) {
+            return;
+        }
 
         const deque = new Deque([this.#root]);
 
@@ -290,7 +293,27 @@ class BinaryTree {
                 deque.push(current.right);
             }
         }
-    }; 
+    };
+
+
+    inOrder(callback) {
+        if (typeof callback !== "function") {
+            throw new TypeError("A callback function must be supplied");
+        }
+
+        this.#inOrderTraverse(this.#root, callback);
+    };
+
+
+    #inOrderTraverse(node, callback) {
+        if (node === null) {
+            return;
+        }
+
+        this.#inOrderTraverse(node.left, callback);
+        callback(node.val);
+        this.#inOrderTraverse(node.right, callback);
+    };
 };
 
 
@@ -309,6 +332,6 @@ tree.print()
 tree.remove(5)
 tree.print()
 
-tree.levelOrder(function(val) {
+tree.inOrder(function(val) {
     console.log(val);
 });
