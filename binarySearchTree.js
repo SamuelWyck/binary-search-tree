@@ -175,6 +175,75 @@ class BinaryTree {
             return this.#insertVal(node.right, value);
         }
     };
+
+
+    remove(value) {
+        if (this.#root === null) {
+            return false;
+        }
+        if (this.#compare(value, this.#root.val) === 0) {
+            this.#root = this.#deleteNode(this.#root);
+            return true;
+        }
+
+        return this.#removeVal(this.#root, value);
+    };
+
+
+    #removeVal(node, value) {
+        if (node === null) {
+            return false;
+        }
+        if (node.left !== null && this.#compare(value, node.left.val) === 0) {
+            node.left = this.#deleteNode(node.left);
+            return true;
+        }
+        if (node.right !== null && this.#compare(value, node.right.val) === 0) {
+            node.right = this.#deleteNode(node.right);
+            return true;
+        }
+        
+        const result = this.#compare(value, node.val);
+
+        if (result < 0) {
+            return this.#removeVal(node.left, value);
+        } else {
+            return this.#removeVal(node.right, value);
+        }
+    };
+
+
+    #deleteNode(node) {
+        if (node.left === null && node.right === null) {
+            return null;
+        }
+        if (node.left === null && node.right !== null) {
+            return node.right;
+        }
+        if (node.right === null && node.left !== null) {
+            return node.left;
+        }
+
+        node.val = this.#swapVal(node.right, node);
+        return node;
+    };
+
+
+    #swapVal(node, prev) {
+        let firstNode = true;
+        while (node.left !== null) {
+            prev = node;
+            node = node.left;
+            firstNode = false;
+        }
+
+        if (firstNode) {
+            prev.right = node.right;
+        } else {
+            prev.left = node.right;
+        }
+        return node.val;
+    };
     
 };
 
@@ -182,7 +251,14 @@ class BinaryTree {
 const tree = new BinaryTree();
 
 const array = [2, 6, 1, 34, 7, 5, 9, 3, 1, 1, 1, 11, 1, 7, 4, 5];
-// tree.buildTree(array)
+tree.buildTree(array)
+// tree.print()
+// console.log(tree.insert(5))
+// tree.insert(10)
+// tree.insert(9)
+// tree.insert(8)
+// tree.insert(11)
+// tree.insert(12)
 tree.print()
-console.log(tree.insert(5))
+tree.remove(5)
 tree.print()
