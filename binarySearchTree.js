@@ -1,6 +1,6 @@
 
-class Node {
-    constructor(value=null) {
+class TreeNode {
+    constructor(value) {
         this.val = value;
         this.left = null;
         this.right = null;
@@ -98,16 +98,48 @@ class BinaryTree {
 
 
     buildTree(array) {
-        array = this.#mergeSort(array, false);
-        return array;
-
+        const sortedArray = this.#mergeSort(array, true, this.#compare);
+        this.#root = this.#buildTreeRecursive(sortedArray, 0, sortedArray.length - 1);
     };
+
+
+    #buildTreeRecursive(array, start, end) {
+        if (start > end) {
+            return null;
+        }
+
+        const mid = start + Math.floor((end - start) / 2);
+        const node = new TreeNode(array[mid]);
+        
+        node.left = this.#buildTreeRecursive(array, start, mid - 1);
+        node.right = this.#buildTreeRecursive(array, mid + 1, end);
+
+        return node;
+    };
+
+
+    prettyPrint(node, prefix = "", isLeft = true) {
+    if (node === null) {
+        return;
+    }
+    if (node.right !== null) {
+        this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+    }
+    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.val}`);
+    if (node.left !== null) {
+        this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+    }
+    };
+
+    print() {
+        this.prettyPrint(this.#root)
+    }
+     
 };
 
 
 const tree = new BinaryTree();
 
 const array = [2, 6, 1, 34, 7, 5, 9, 3, 1, 1, 1, 11, 1, 7, 4, 5];
-console.log(array)
-
-console.log(tree.buildTree(array))
+tree.buildTree(array)
+console.log(tree.print())
