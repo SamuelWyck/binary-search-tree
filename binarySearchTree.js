@@ -369,21 +369,41 @@ class BinaryTree {
             this.height(node.right)
         );
     };
+
+
+    depth(node) {
+        return this.#findDepth(this.#root, node);
+    };
+
+
+    #findDepth(node, targetNode) {
+        if (node === null) {
+            return -1;
+        }
+
+        const result = this.#compare(targetNode.val, node.val);
+        if (result === 0) {
+            return 0;
+        }
+
+        const nextNode = (result < 0) ? node.left : node.right;
+        return 1 + this.#findDepth(nextNode, targetNode);
+    };
 };
 
 
 const tree = new BinaryTree();
 
 const array = [2, 6, 1, 34, 7, 5, 9, 3, 1, 1, 1, 11, 1, 7, 4, 5];
-// tree.buildTree(array)
+tree.buildTree(array)
 // tree.print()
 // console.log(tree.insert(5))
-tree.insert(10)
-tree.insert(9)
-tree.insert(8)
-tree.insert(11)
+// tree.insert(10)
+// tree.insert(9)
+// tree.insert(8)
+// tree.insert(11)
 // tree.insert(12)
+// tree.print()
+// tree.remove(5)
 tree.print()
-tree.remove(5)
-tree.print()
-console.log(tree.height())
+console.log(tree.depth(tree.find(2)))
