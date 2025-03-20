@@ -356,12 +356,7 @@ class BinaryTree {
     };
 
 
-    height() {
-        return this.#traverseHeight(this.#root);
-    };
-
-
-    #traverseHeight(node) {
+    height(node=this.#root) {
         if (node === null) {
             return -1;
         }
@@ -370,8 +365,8 @@ class BinaryTree {
         }
 
         return 1 + Math.max(
-            this.#traverseHeight(node.left),
-            this.#traverseHeight(node.right)
+            this.height(node.left),
+            this.height(node.right)
         );
     };
 };
