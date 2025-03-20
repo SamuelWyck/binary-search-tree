@@ -389,6 +389,35 @@ class BinaryTree {
         const nextNode = (result < 0) ? node.left : node.right;
         return 1 + this.#findDepth(nextNode, targetNode);
     };
+
+
+    isBalanced() {
+        if (this.#root === null) {
+            return true;
+        }
+        return this.#getBalance(this.#root);
+    };
+
+
+    #getBalance(node) {
+        if (node === null) {
+            return true;
+        }
+        if (node.left === null && node.right === null) {
+            return true;
+        }
+        if ((node.left !== null && node.right === null) || (node.right !== null && node.left === null)) {
+            const result = this.height(node.right) - this.height(node.left);
+            return Math.abs(result) === 1 || result === 0;
+        }
+
+        const leftBalanced = this.#getBalance(node.left);
+        const rightBalanced = this.#getBalance(node.right);
+        if (!leftBalanced || !rightBalanced) {
+            return false;
+        }
+        return true;
+    };
 };
 
 
@@ -406,4 +435,8 @@ tree.buildTree(array)
 // tree.print()
 // tree.remove(5)
 tree.print()
-console.log(tree.depth(tree.find(11)))
+// console.log(tree.depth(tree.find(11)))
+console.log(tree.isBalanced())
+tree.insert(35)
+tree.print()
+console.log(tree.isBalanced())
