@@ -418,13 +418,31 @@ class BinaryTree {
         }
         return true;
     };
+
+
+    rebalance() {
+        if (this.#root === null) {
+            return;
+        }
+        const valueArray = this.#toArray();
+        this.#root = this.#buildTreeRecursive(valueArray, 0, valueArray.length - 1);
+    };
+
+
+    #toArray() {
+        const valueArray = [];
+        this.inOrder(function(value) {
+            valueArray.push(value);
+        });
+        return valueArray;
+    };
 };
 
 
-const tree = new BinaryTree();
+// const tree = new BinaryTree();
 
-const array = [2, 6, 1, 34, 7, 5, 9, 3, 1, 1, 1, 11, 1, 7, 4, 5];
-tree.buildTree(array)
+// const array = [2, 6, 1, 34, 7, 5, 9, 3, 1, 1, 1, 11, 1, 7, 4, 5];
+// tree.buildTree(array)
 // tree.print()
 // console.log(tree.insert(5))
 // tree.insert(10)
@@ -434,9 +452,13 @@ tree.buildTree(array)
 // tree.insert(12)
 // tree.print()
 // tree.remove(5)
-tree.print()
-// console.log(tree.depth(tree.find(11)))
-console.log(tree.isBalanced())
-tree.insert(35)
-tree.print()
-console.log(tree.isBalanced())
+// tree.print()
+// // console.log(tree.depth(tree.find(11)))
+// // console.log(tree.isBalanced())
+// tree.insert(35)
+// tree.print()
+// console.log(tree.isBalanced())
+// tree.rebalance()
+// tree.print()
+// console.log(tree.isBalanced())
+export default BinaryTree;
