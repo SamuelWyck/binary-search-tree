@@ -354,24 +354,41 @@ class BinaryTree {
         this.#postOrderTraverse(node.right, callback);
         callback(node.val);
     };
+
+
+    height() {
+        return this.#traverseHeight(this.#root);
+    };
+
+
+    #traverseHeight(node) {
+        if (node === null) {
+            return -1;
+        }
+        if (node.left === null && node.right === null) {
+            return 0;
+        }
+
+        return 1 + Math.max(
+            this.#traverseHeight(node.left),
+            this.#traverseHeight(node.right)
+        );
+    };
 };
 
 
 const tree = new BinaryTree();
 
 const array = [2, 6, 1, 34, 7, 5, 9, 3, 1, 1, 1, 11, 1, 7, 4, 5];
-tree.buildTree(array)
+// tree.buildTree(array)
 // tree.print()
 // console.log(tree.insert(5))
-// tree.insert(10)
-// tree.insert(9)
-// tree.insert(8)
-// tree.insert(11)
+tree.insert(10)
+tree.insert(9)
+tree.insert(8)
+tree.insert(11)
 // tree.insert(12)
 tree.print()
 tree.remove(5)
 tree.print()
-
-tree.postOrder(function(val) {
-    console.log(val);
-});
+console.log(tree.height())
